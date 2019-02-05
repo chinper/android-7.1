@@ -1,17 +1,17 @@
-/**
+
 properties([
   parameters([
-    string(defaultValue: '1.0', description: 'Current version number', name: 'VERSION'),
+    string(defaultValue: '0.3.13', description: 'Current version number', name: 'VERSION'),
     text(defaultValue: '', description: 'A list of changes', name: 'CHANGES'),
     booleanParam(defaultValue: true, description: 'Whether to upload to Github for release or not', name: 'GITHUB_PRERELEASE'),
     booleanParam(defaultValue: false, description: 'If build should be marked as pre-release', name: 'GITHUB_PRERELEASE'),
-    string(defaultValue: 'ayufan-pine64', description: 'GitHub username or organization', name: 'GITHUB_USER'),
+    string(defaultValue: 'chinper', description: 'GitHub username or organization', name: 'GITHUB_USER'),
     string(defaultValue: 'android-7.1', description: 'GitHub repository', name: 'GITHUB_REPO'),
     booleanParam(defaultValue: true, description: 'Select if you want to build desktop version.', name: 'BUILD_DESKTOP'),
     booleanParam(defaultValue: true, description: 'Select if you want to build TV version.', name: 'BUILD_TV'),
   ])
 ])
-*/
+
 
 node {
   timestamps {
