@@ -1,4 +1,4 @@
-
+/**
 properties([
   parameters([
     string(defaultValue: '0.3.13', description: 'Current version number', name: 'VERSION'),
@@ -11,7 +11,7 @@ properties([
     booleanParam(defaultValue: true, description: 'Select if you want to build TV version.', name: 'BUILD_TV'),
   ])
 ])
-
+*/
 
 node {
   timestamps {
@@ -33,7 +33,7 @@ node {
 
         repo init -u https://android.googlesource.com/platform/manifest -b android-7.1.2_r6 --depth=1
         rm -rf .repo/local_manifests
-        git clone https://github.com/ayufan-rock64/android-manifests -b default .repo/local_manifests
+        git clone https://github.com/ayufan-rock64/android-manifests -b nougat-7.1 .repo/local_manifests
 
         repo sync -j 20 -c --force-sync
         '''
