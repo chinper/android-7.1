@@ -1,9 +1,9 @@
 
 properties([
   parameters([
-    string(defaultValue: '0.3.13', description: 'Current version number', name: 'VERSION'),
+    string(defaultValue: '0.3.14', description: 'Current version number', name: 'VERSION'),
     text(defaultValue: '', description: 'A list of changes', name: 'CHANGES'),
-    booleanParam(defaultValue: true, description: 'Whether to upload to Github for release or not', name: 'GITHUB_PRERELEASE'),
+    booleanParam(defaultValue: false, description: 'Whether to upload to Github for release or not', name: 'GITHUB_UPLOAD'),
     booleanParam(defaultValue: true, description: 'If build should be marked as pre-release', name: 'GITHUB_PRERELEASE'),
     string(defaultValue: 'chinper', description: 'GitHub username or organization', name: 'GITHUB_USER'),
     string(defaultValue: 'android-7.1', description: 'GitHub repository', name: 'GITHUB_REPO'),
