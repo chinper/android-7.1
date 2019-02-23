@@ -36,6 +36,15 @@ node('docker && android-build') {
         git clone https://github.com/chinper/android-manifests -b nougat-7.1 .repo/local_manifests
 
         repo sync -j 20 -c --force-sync
+        
+        [ ! -e vendor/opengapps/sources ] && mkdir vendor/opengapps/sources
+        [ ! -e vendor/opengapps/sources/all ] && \
+          git clone https://gitlab.nezorfla.me/opengapps/all.git vendor/opengapps/sources/all
+        [ ! -e vendor/opengapps/sources/arm ] && \
+          git clone https://gitlab.nezorfla.me/opengapps/arm.git vendor/opengapps/sources/arm
+        [ ! -e vendor/opengapps/sources/arm64 ] && \
+          git clone https://gitlab.nezorfla.me/opengapps/arm64.git vendor/opengapps/sources/arm64
+          
         '''
 
         withEnv([
