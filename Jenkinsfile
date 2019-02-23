@@ -28,7 +28,7 @@ node('docker && android-build') {
 
         set -xe
         
-        git config --global http.postBuffer 1048576000
+        # git config --global http.postBuffer 1048576000
         export HOME=$WORKSPACE
         export USER=jenkins
 
