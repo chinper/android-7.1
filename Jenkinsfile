@@ -27,7 +27,8 @@ node('docker && android-build') {
         sh '''#!/bin/bash
 
         set -xe
-
+        
+        git config --global http.postBuffer 1048576000
         export HOME=$WORKSPACE
         export USER=jenkins
 
@@ -37,13 +38,16 @@ node('docker && android-build') {
 
         repo sync -j 20 -c --force-sync
         
-        [ ! -e vendor/opengapps/sources ] && mkdir vendor/opengapps/sources
-        [ ! -e vendor/opengapps/sources/all ] && \
-          git clone https://gitlab.nezorfla.me/opengapps/all.git vendor/opengapps/sources/all
-        [ ! -e vendor/opengapps/sources/arm ] && \
-          git clone https://gitlab.nezorfla.me/opengapps/arm.git vendor/opengapps/sources/arm
-        [ ! -e vendor/opengapps/sources/arm64 ] && \
-          git clone https://gitlab.nezorfla.me/opengapps/arm64.git vendor/opengapps/sources/arm64
+        # [ ! -e vendor/opengapps/sources ] && mkdir vendor/opengapps/sources
+        # [ ! -e vendor/opengapps/sources/all ] && \
+        #   git clone https://gitlab.nezorfla.me/opengapps/all.git vendor/opengapps/sources/all
+        # [ ! -e vendor/opengapps/sources/arm ] && \
+        #   git clone https://gitlab.nezorfla.me/opengapps/arm.git vendor/opengapps/sources/arm
+        # [ ! -e vendor/opengapps/sources/arm64 ] && \
+        #   git clone https://gitlab.nezorfla.me/opengapps/arm64.git vendor/opengapps/sources/arm64
+        cd vendor/openapps/sources/opengapps/
+        ./download_sources.sh --shallow arm64
+        
           
         '''
 
