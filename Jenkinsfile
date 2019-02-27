@@ -45,9 +45,9 @@ node('docker && android-build') {
         #   git clone https://gitlab.nezorfla.me/opengapps/arm.git vendor/opengapps/sources/arm
         # [ ! -e vendor/opengapps/sources/arm64 ] && \
         #   git clone https://gitlab.nezorfla.me/opengapps/arm64.git vendor/opengapps/sources/arm64
-        [ -e vendor/opengapps/sources/opengapps ] && \
-        cd vendor/opengapps/sources/opengapps/ && \
-        ./download_sources.sh --shallow arm64
+        # [ -e vendor/opengapps/sources/opengapps ] && \
+        # cd vendor/opengapps/sources/opengapps/ && \
+        # ./download_sources.sh --shallow arm64
         
           
         '''
