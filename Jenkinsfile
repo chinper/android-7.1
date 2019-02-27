@@ -9,6 +9,7 @@ properties([
     string(defaultValue: 'android-7.1', description: 'GitHub repository', name: 'GITHUB_REPO'),
     booleanParam(defaultValue: false, description: 'Select if you want to build desktop version.', name: 'BUILD_DESKTOP'),
     booleanParam(defaultValue: true, description: 'Select if you want to build TV version.', name: 'BUILD_TV'),
+    booleanParam(defaultValue: true, description: 'If build should be REDOWNLOAD', name: 'GITHUB_REDOWNLOAD'),
   ])
 ])
 
@@ -36,7 +37,7 @@ node('docker && android-build') {
         rm -rf .repo/local_manifests
         git clone https://github.com/chinper/android-manifests -b nougat-7.1 .repo/local_manifests
 
-        repo sync -j 20 -c --force-sync
+        params.GITHUB_REDOWNLOAD && (repo sync -j 20 -c --force-sync)
         
         # [ ! -e vendor/opengapps/sources ] && mkdir vendor/opengapps/sources
         # [ ! -e vendor/opengapps/sources/all ] && \
