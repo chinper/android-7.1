@@ -95,7 +95,7 @@ node('docker && android-build') {
         withEnv([
           "VERSION=$VERSION",
           'USE_CCACHE=true',
-          'ANDROID_JACK_VM_ARGS=-Xmx10g -Dfile.encoding=UTF-8 -XX:+TieredCompilation',
+          'ANDROID_JACK_VM_ARGS=-Xmx10g -Dfile.encoding=UTF-8 -XX:+TieredCompilation -XX:MaxJavaStackTraceDepth=-1 -Djava.io.tmpdir=/tmp',
           'ANDROID_NO_TEST_CHECK=true'
         ]) {
           stage 'Regular Rock64'
