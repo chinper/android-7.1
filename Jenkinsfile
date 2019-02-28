@@ -88,6 +88,7 @@ node('docker && android-build') {
               rm -rf rockdev/
               git -C kernel clean -fdx
               git -C u-boot clean -fdx
+              ./gradlew clean build
             '''
         }
 
