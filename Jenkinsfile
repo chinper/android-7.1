@@ -8,7 +8,8 @@ properties([
     string(defaultValue: 'chinper', description: 'GitHub username or organization', name: 'GITHUB_USER'),
     string(defaultValue: 'android-7.1', description: 'GitHub repository', name: 'GITHUB_REPO'),
     booleanParam(defaultValue: false, description: 'Select if you want to build desktop version.', name: 'BUILD_DESKTOP'),
-    booleanParam(defaultValue: true, description: 'Select if you want to build TV version.', name: 'BUILD_TV'),
+    booleanParam(defaultValue: true, description: 'Select if you want to build TV rock64 version.', name: 'BUILD_TV'),
+    booleanParam(defaultValue: false, description: 'Select if you want to build TV rockbox version.', name: 'BUILD_TV2'),
     booleanParam(defaultValue: true, description: 'If build should be REDOWNLOAD', name: 'GITHUB_REDOWNLOAD'),
   ])
 ])
@@ -135,7 +136,7 @@ node('docker && android-build') {
           }
 
           stage 'TV Rockbox'
-          if (params.BUILD_TV) {
+          if (params.BUILD_TV2) {
             sh '''#!/bin/bash
               export CCACHE_DIR=$PWD/ccache
               export HOME=$WORKSPACE
