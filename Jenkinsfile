@@ -97,7 +97,6 @@ node('docker && android-build') {
         withEnv([
           "VERSION=$VERSION",
           'USE_CCACHE=true',
-          'USE_NINJA=false',
           'ANDROID_JACK_VM_ARGS=-Xmx4096m -Dfile.encoding=UTF-8 -XX:+TieredCompilation -XX:MaxJavaStackTraceDepth=-1 -Djava.io.tmpdir=/tmp',
           'ANDROID_NO_TEST_CHECK=true'
         ]) {
