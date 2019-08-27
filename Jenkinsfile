@@ -71,10 +71,10 @@ node('docker && android-build') {
             export HOME=$WORKSPACE
             export USER=jenkins
 
-            if curl -s --fail "https://api.github.com/repos/$GITHUB_USER/$GITHUB_REPO/contents/versions/$VERSION/CHANGES.md"; then
-              echo "Version already exist."
-              exit 1
-            fi
+            #if curl -s --fail "https://api.github.com/repos/$GITHUB_USER/$GITHUB_REPO/contents/versions/$VERSION/CHANGES.md"; then
+            #  echo "Version already exist."
+            #  exit 1
+            #fi
           '''
         }
 
