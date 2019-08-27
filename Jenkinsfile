@@ -86,10 +86,10 @@ node('docker && android-build') {
             stage 'Prepare'
             sh '''#!/bin/bash
               export CCACHE_DIR=$PWD/ccache
-              prebuilts/misc/linux-x86/ccache/ccache -M 0 -F 0
-              rm -rf rockdev/
-              git -C kernel clean -fdx
-              git -C u-boot clean -fdx
+              #prebuilts/misc/linux-x86/ccache/ccache -M 0 -F 0
+              #rm -rf rockdev/
+              #git -C kernel clean -fdx
+              #git -C u-boot clean -fdx
               # ./gradlew clean build
             '''
         }
@@ -97,7 +97,7 @@ node('docker && android-build') {
         withEnv([
           "VERSION=$VERSION",
           'USE_CCACHE=true',
-          'ANDROID_JACK_VM_ARGS=-Xmx4096m -Dfile.encoding=UTF-8 -XX:+TieredCompilation -XX:MaxJavaStackTraceDepth=-1 -Djava.io.tmpdir=/tmp',
+          'ANDROID_JACK_VM_ARGS=-Xmx8192m -Dfile.encoding=UTF-8 -XX:+TieredCompilation -XX:MaxJavaStackTraceDepth=-1 -Djava.io.tmpdir=/tmp',
           'ANDROID_NO_TEST_CHECK=true'
         ]) {
           stage 'Regular Rock64'
