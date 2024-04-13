@@ -15,7 +15,7 @@ RUN curl -L https://github.com/aktau/github-release/releases/download/v0.6.2/lin
     mv /tmp/bin/linux/amd64/github-release /usr/local/bin/
 
 RUN apt-get install -y repo && \
-    rm -f /usr/local/bin/repo 
+    cp -vf /usr/bin/repo /usr/local/bin/repo 
 
 RUN which repo && \
     which github-release
