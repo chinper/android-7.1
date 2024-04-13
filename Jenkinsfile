@@ -34,13 +34,13 @@ node('docker && android-build') {
         export HOME=$WORKSPACE
         export USER=jenkins
 
-        python3 repo init -u https://android.googlesource.com/platform/manifest -b android-7.1.2_r6 --depth=1
+        python3 /usr/local/bin/repo init -u https://android.googlesource.com/platform/manifest -b android-7.1.2_r6 --depth=1
         rm -rf .repo/local_manifests
         git clone https://github.com/chinper/android-manifests -b nougat-7.1 .repo/local_manifests
-        python3 repo sync -j 20 -c --force-sync
+        python3 /usr/local/bin/repo sync -j 20 -c --force-sync
 
         if (params.GITHUB_REDOWNLOAD) {
-        python3 repo sync -j 20 -c --force-sync
+        python3 /usr/local/bin/repo sync -j 20 -c --force-sync
         }
          [ ! -e vendor/opengapps/sources ] && mkdir vendor/opengapps/sources
          [ ! -e vendor/opengapps/sources/all ] && \
@@ -199,7 +199,7 @@ node('docker && android-build') {
               export HOME=$WORKSPACE
               export USER=jenkins
 
-              python3 repo manifest -r -o manifest.xml
+              python3 /usr/local/bin/repo manifest -r -o manifest.xml
 
               echo "{\\"message\\":\\"Add $VERSION changes\\", \\"committer\\":{\\"name\\":\\"Jenkins\\",\\"email\\":\\"jenkins@ayufan.eu\\"},\\"content\\":\\"$(echo "$CHANGES" | base64 -w 0)\\"}" | \
                 curl --fail -X PUT -H "Authorization: token $GITHUB_TOKEN" -d @- \
