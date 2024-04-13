@@ -14,8 +14,8 @@ RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin
 RUN curl -L https://github.com/aktau/github-release/releases/download/v0.6.2/linux-amd64-github-release.tar.bz2 | tar -C /tmp -jx && \
     mv /tmp/bin/linux/amd64/github-release /usr/local/bin/
 
-# RUN git clone https://gerrit.googlesource.com/git-repo /tmp/xxx && cp -f /tmp/xxx/repo /usr/local/bin/repo && \
-#     chmod +x /usr/local/bin/repo 
+RUN apt-get install -y repo && \
+    rm -f /usr/local/bin/repo 
 
 RUN which repo && \
     which github-release
