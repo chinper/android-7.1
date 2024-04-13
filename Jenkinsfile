@@ -34,24 +34,24 @@ node('docker && android-build') {
         export HOME=$WORKSPACE
         export USER=jenkins
 
-        #repo init -u https://android.googlesource.com/platform/manifest -b android-7.1.2_r6 --depth=1
-        #rm -rf .repo/local_manifests
-        #git clone https://github.com/chinper/android-manifests -b nougat-7.1 .repo/local_manifests
-        # repo sync -j 20 -c --force-sync
+        repo init -u https://android.googlesource.com/platform/manifest -b android-7.1.2_r6 --depth=1
+        rm -rf .repo/local_manifests
+        git clone https://github.com/chinper/android-manifests -b nougat-7.1 .repo/local_manifests
+         repo sync -j 20 -c --force-sync
 
-        #if (params.GITHUB_REDOWNLOAD) {
-        #  repo sync -j 20 -c --force-sync
-        #}
-        # [ ! -e vendor/opengapps/sources ] && mkdir vendor/opengapps/sources
-        # [ ! -e vendor/opengapps/sources/all ] && \
-        #   git clone https://gitlab.nezorfla.me/opengapps/all.git vendor/opengapps/sources/all
-        # [ ! -e vendor/opengapps/sources/arm ] && \
-        #   git clone https://gitlab.nezorfla.me/opengapps/arm.git vendor/opengapps/sources/arm
-        # [ ! -e vendor/opengapps/sources/arm64 ] && \
-        #   git clone https://gitlab.nezorfla.me/opengapps/arm64.git vendor/opengapps/sources/arm64
-        # [ -e vendor/opengapps/sources/opengapps ] && \
-        # cd vendor/opengapps/sources/opengapps/ && \
-        # ./download_sources.sh --shallow arm64
+        if (params.GITHUB_REDOWNLOAD) {
+          repo sync -j 20 -c --force-sync
+        }
+         [ ! -e vendor/opengapps/sources ] && mkdir vendor/opengapps/sources
+         [ ! -e vendor/opengapps/sources/all ] && \
+           git clone https://gitlab.nezorfla.me/opengapps/all.git vendor/opengapps/sources/all
+         [ ! -e vendor/opengapps/sources/arm ] && \
+           git clone https://gitlab.nezorfla.me/opengapps/arm.git vendor/opengapps/sources/arm
+         [ ! -e vendor/opengapps/sources/arm64 ] && \
+           git clone https://gitlab.nezorfla.me/opengapps/arm64.git vendor/opengapps/sources/arm64
+         [ -e vendor/opengapps/sources/opengapps ] && \
+         cd vendor/opengapps/sources/opengapps/ && \
+         ./download_sources.sh --shallow arm64
         
           
         '''
@@ -86,11 +86,11 @@ node('docker && android-build') {
             stage 'Prepare'
             sh '''#!/bin/bash
               export CCACHE_DIR=$PWD/ccache
-              #prebuilts/misc/linux-x86/ccache/ccache -M 0 -F 0
-              #rm -rf rockdev/
-              #git -C kernel clean -fdx
-              #git -C u-boot clean -fdx
-              # ./gradlew clean build
+              prebuilts/misc/linux-x86/ccache/ccache -M 0 -F 0
+              rm -rf rockdev/
+              git -C kernel clean -fdx
+              git -C u-boot clean -fdx
+               ./gradlew clean build
             '''
         }
 
