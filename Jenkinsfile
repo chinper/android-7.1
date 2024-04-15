@@ -37,7 +37,7 @@ node('docker && android-build') {
         # repo init -u https://android.googlesource.com/platform/manifest -b android-7.1.2_r6 --depth=1
         # rm -rf .repo/local_manifests
         # git clone https://github.com/chinper/android-manifests -b nougat-7.1 .repo/local_manifests
-        repo sync -j 20 -c --force-sync
+        # repo sync -j 20 -c --force-sync
 
         if (params.GITHUB_REDOWNLOAD) {
           repo sync -j 20 -c --force-sync
