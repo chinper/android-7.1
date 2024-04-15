@@ -8,8 +8,8 @@ RUN apt-get install -y openjdk-8-jdk python python3 git-core gnupg flex bison gp
     htop iotop sysstat iftop pigz bc device-tree-compiler lunzip \
     dosfstools vim-common
 
-RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo && \
-    chmod +x /usr/local/bin/repo
+# RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo && \
+#     chmod +x /usr/local/bin/repo
 
 RUN curl -L https://github.com/aktau/github-release/releases/download/v0.6.2/linux-amd64-github-release.tar.bz2 | tar -C /tmp -jx && \
     mv /tmp/bin/linux/amd64/github-release /usr/local/bin/

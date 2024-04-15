@@ -34,9 +34,9 @@ node('docker && android-build') {
         export HOME=$WORKSPACE
         export USER=jenkins
 
-        repo init -u https://android.googlesource.com/platform/manifest -b android-7.1.2_r6 --depth=1
-        rm -rf .repo/local_manifests
-        git clone https://github.com/chinper/android-manifests -b nougat-7.1 .repo/local_manifests
+        # repo init -u https://android.googlesource.com/platform/manifest -b android-7.1.2_r6 --depth=1
+        # rm -rf .repo/local_manifests
+        # git clone https://github.com/chinper/android-manifests -b nougat-7.1 .repo/local_manifests
         repo sync -j 20 -c --force-sync
 
         if (params.GITHUB_REDOWNLOAD) {
@@ -44,11 +44,11 @@ node('docker && android-build') {
         }
          [ ! -e vendor/opengapps/sources ] && mkdir vendor/opengapps/sources
          [ ! -e vendor/opengapps/sources/all ] && \
-           git clone https://gitlab.nezorfla.me/opengapps/all.git vendor/opengapps/sources/all
+           git clone https://gitlab.opengapps.org/opengapps/all.git vendor/opengapps/sources/all
          [ ! -e vendor/opengapps/sources/arm ] && \
-           git clone https://gitlab.nezorfla.me/opengapps/arm.git vendor/opengapps/sources/arm
+           git clone https://gitlab.opengapps.org/opengapps/arm.git vendor/opengapps/sources/arm
          [ ! -e vendor/opengapps/sources/arm64 ] && \
-           git clone https://gitlab.nezorfla.me/opengapps/arm64.git vendor/opengapps/sources/arm64
+           git clone https://gitlab.opengapps.org/opengapps/arm64.git vendor/opengapps/sources/arm64
          [ -e vendor/opengapps/sources/opengapps ] && \
          cd vendor/opengapps/sources/opengapps/ && \
          ./download_sources.sh --shallow arm64
