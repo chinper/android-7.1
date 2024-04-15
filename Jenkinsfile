@@ -42,16 +42,16 @@ node('docker && android-build') {
         if (params.GITHUB_REDOWNLOAD) {
           repo sync -j 20 -c --force-sync
         }
-         [ ! -e vendor/opengapps/sources ] && mkdir vendor/opengapps/sources
-         [ ! -e vendor/opengapps/sources/all ] && \
-           git clone https://gitlab.opengapps.org/opengapps/all.git vendor/opengapps/sources/all
-         [ ! -e vendor/opengapps/sources/arm ] && \
-           git clone https://gitlab.opengapps.org/opengapps/arm.git vendor/opengapps/sources/arm
-         [ ! -e vendor/opengapps/sources/arm64 ] && \
-           git clone https://gitlab.opengapps.org/opengapps/arm64.git vendor/opengapps/sources/arm64
-         [ -e vendor/opengapps/sources/opengapps ] && \
-         cd vendor/opengapps/sources/opengapps/ && \
-         ./download_sources.sh --shallow arm64
+        # [ ! -e vendor/opengapps/sources ] && mkdir vendor/opengapps/sources
+        # [ ! -e vendor/opengapps/sources/all ] && \
+        #   git clone https://gitlab.opengapps.org/opengapps/all.git vendor/opengapps/sources/all
+        # [ ! -e vendor/opengapps/sources/arm ] && \
+        #   git clone https://gitlab.opengapps.org/opengapps/arm.git vendor/opengapps/sources/arm
+        # [ ! -e vendor/opengapps/sources/arm64 ] && \
+        #   git clone https://gitlab.opengapps.org/opengapps/arm64.git vendor/opengapps/sources/arm64
+        # [ -e vendor/opengapps/sources/opengapps ] && \
+        # cd vendor/opengapps/sources/opengapps/ && \
+        # ./download_sources.sh --shallow arm64
         
           
         '''
