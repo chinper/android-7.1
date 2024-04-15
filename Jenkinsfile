@@ -17,9 +17,6 @@ properties([
 
 node('docker && android-build') {
   timestamps {
-    tools {
-      gradle 8.7
-    }
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
       stage "Environment"
       dir('build-environment') {

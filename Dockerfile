@@ -17,5 +17,7 @@ RUN curl -L https://github.com/aktau/github-release/releases/download/v0.6.2/lin
 RUN apt-get install -y repo && \
     cp -vf /usr/bin/repo /usr/local/bin/repo 
 
+RUN apt-get install -y gradle
+
 RUN which repo && \
     which github-release
