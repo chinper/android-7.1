@@ -10,16 +10,16 @@ properties([
     booleanParam(defaultValue: false, description: 'Select if you want to build desktop version.', name: 'BUILD_DESKTOP'),
     booleanParam(defaultValue: true, description: 'Select if you want to build TV rock64 version.', name: 'BUILD_TV'),
     booleanParam(defaultValue: false, description: 'Select if you want to build TV rockbox version.', name: 'BUILD_TV2'),
-    booleanParam(defaultValue: true, description: 'If build should be REDOWNLOAD', name: 'GITHUB_REDOWNLOAD'),
+    booleanParam(defaultValue: false, description: 'If build should be REDOWNLOAD', name: 'GITHUB_REDOWNLOAD'),
   ])
 ])
 
 
 node('docker && android-build') {
-  tools {
-    gradle 8.7
-  }
   timestamps {
+    tools {
+      gradle 8.7
+    }
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
       stage "Environment"
       dir('build-environment') {
