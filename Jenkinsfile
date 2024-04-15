@@ -39,6 +39,8 @@ node('docker && android-build') {
         # git clone https://github.com/chinper/android-manifests -b nougat-7.1 .repo/local_manifests
         # repo sync -j 20 -c --force-sync
         echo '123'
+        gradle wrapper --gradle-version 2.1
+        ./gradle
         # if (params.GITHUB_REDOWNLOAD) {
         #   repo sync -j 20 -c --force-sync
         # }
