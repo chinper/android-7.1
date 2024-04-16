@@ -7,6 +7,7 @@ properties([
     booleanParam(defaultValue: true, description: 'If build should be marked as pre-release', name: 'GITHUB_PRERELEASE'),
     string(defaultValue: 'chinper', description: 'GitHub username or organization', name: 'GITHUB_USER'),
     string(defaultValue: 'android-7.1', description: 'GitHub repository', name: 'GITHUB_REPO'),
+    booleanParam(defaultValue: false, description: 'full repo', name: 'FULL_REPO'),
     booleanParam(defaultValue: false, description: 'Select if you want to build desktop version.', name: 'BUILD_DESKTOP'),
     booleanParam(defaultValue: true, description: 'Select if you want to build TV rock64 version.', name: 'BUILD_TV'),
     booleanParam(defaultValue: false, description: 'Select if you want to build TV rockbox version.', name: 'BUILD_TV2'),
@@ -20,7 +21,7 @@ node('docker && android-build') {
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
       stage "Environment"
       dir('build-environment') {
-        checkout scm
+        // checkout scm
       }
       def environment = docker.build('build-environment-rock64:android-7.1', 'build-environment')
 
@@ -33,11 +34,21 @@ node('docker && android-build') {
         # git config --global http.postBuffer 1048576000
         export HOME=$WORKSPACE
         export USER=jenkins
+        
+        # [ -d ~/.repo ] && rm -Rf ~/.repo
+        # [ -d ~/.repoconfig ] && rm -Rf ~/.repoconfig
+        [ -d ~/bin ] || mkdir ~/bin
+        curl https://storage.googleapis.com/git-repo-downloads/repo-1 > ~/bin/repo
+        chmod a+x ~/bin/repo
 
-        # repo init -u https://android.googlesource.com/platform/manifest -b android-7.1.2_r6 --depth=1
-        # rm -rf .repo/local_manifests
-        # git clone https://github.com/chinper/android-manifests -b nougat-7.1 .repo/local_manifests
-        # repo sync -j 20 -c --force-sync
+        [ -d ~/.repo ] || python ~/bin/repo init -u https://android.googlesource.com/platform/manifest -b android-7.1.2_r6 --depth=1
+        if (params.FULL_REPO) {
+            rm -rf .repo/local_manifests
+            git clone https://github.com/chinper/android-manifests.git -b nougat-7.1 .repo/local_manifests
+            python ~/bin/repo sync -j 20 -c --force-sync
+        }
+        # below get 
+        # python3 --version
         gradle wrapper --gradle-version 2.1
         ./gradlew
         # if (params.GITHUB_REDOWNLOAD) {
@@ -53,8 +64,26 @@ node('docker && android-build') {
         # [ -e vendor/opengapps/sources/opengapps ] && \
         # cd vendor/opengapps/sources/opengapps/ && \
         # ./download_sources.sh --shallow arm64
+
+        cd ~/vendor/opengapps/sources
+        for d in ./*/ ; do (cd "$d" && git lfs pull); done      
         
-          
+        
+        # cd ~/vendor/opengapps/build
+        # git lfs install
+        # ~/.repo/repo/repo forall -c git lfs pull
+        
+        
+        echo "remove some duplicated folder..."
+        cd ~/vendor/opengapps/atv-build/modules
+        for d in *; do 
+            if [ -d "$d" ]; then
+                # ls -d ../../build/modules/*
+                [ -d ../../build/modules/$d ] &&  echo "$d" && rm -Rfv ../../build/modules/$d
+            fi
+        done
+        cd ~/        
+
         '''
 
         withEnv([
@@ -98,6 +127,7 @@ node('docker && android-build') {
         withEnv([
           "VERSION=$VERSION",
           'USE_CCACHE=true',
+          'USE_NINJA=false',
           'ANDROID_JACK_VM_ARGS=-Xmx8192m -Dfile.encoding=UTF-8 -XX:+TieredCompilation -XX:MaxJavaStackTraceDepth=-1 -Djava.io.tmpdir=/tmp',
           'ANDROID_NO_TEST_CHECK=true'
         ]) {
