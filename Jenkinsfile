@@ -42,11 +42,27 @@ node('docker && android-build') {
         chmod a+x ~/bin/repo
 
         [ -d ~/.repo ] || python ~/bin/repo init -u https://android.googlesource.com/platform/manifest -b android-7.1.2_r6 --depth=1
+
+        '''
+        
         if (params.FULL_REPO) {
-            rm -rf .repo/local_manifests
-            git clone https://github.com/chinper/android-manifests.git -b nougat-7.1 .repo/local_manifests
-            python ~/bin/repo sync -j 20 -c --force-sync
+          sh '''#!/bin/bash
+          set -xe
+          export HOME=$WORKSPACE
+          export USER=jenkins
+          
+          rm -rf .repo/local_manifests
+          git clone https://github.com/chinper/android-manifests.git -b nougat-7.1 .repo/local_manifests
+          python ~/bin/repo sync -j 20 -c --force-sync
+
+          '''
         }
+
+        sh '''#!/bin/bash
+        set -xe
+        export HOME=$WORKSPACE
+        export USER=jenkins
+
         # below get 
         # python3 --version
         gradle wrapper --gradle-version 2.1
