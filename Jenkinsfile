@@ -21,7 +21,7 @@ node('docker && android-build') {
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
       stage "Environment"
       dir('build-environment') {
-        // checkout scm
+        checkout scm
       }
       def environment = docker.build('build-environment-rock64:android-7.1', 'build-environment')
 
@@ -136,7 +136,7 @@ node('docker && android-build') {
               rm -rf rockdev/
               git -C kernel clean -fdx
               git -C u-boot clean -fdx
-               ./gradlew clean build
+              # ./gradlew clean build
             '''
         }
 
